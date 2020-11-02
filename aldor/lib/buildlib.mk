@@ -155,7 +155,7 @@ $(addsuffix .fm,$(alldomains)): %.fm: %.ao
 $(if $(_withdocs),$(patsubst %,$(librarydocdir)/tex/gen/%.tex,$(docdomains)),): $(librarydocdir)/tex/gen/%.tex: %.as
 	$(AM_V_AS2TEX)set -x;			\
 	  mkdir -p $(librarydocdir)/tex/gen;	\
-	  $(tooldir)/extract -mALDOC -o $@ $(srcdir)/$*.as
+	  $(unixtooldir)/extract -mALDOC -o $@ $(srcdir)/$*.as
 
 .PHONY: $(addsuffix .gloop, $(alldomains))
 $(addsuffix .gloop, $(alldomains)): %.gloop:
@@ -280,6 +280,7 @@ CHECK_TEST_STATUS = \
 
 aldortestexecs := $(patsubst %,%.aldortest.exe,$(library))
 aldortooldir = $(abs_top_builddir)/aldor/subcmd/unitools
+unixtooldir = $(abs_top_builddir)/aldor/tools/unix
 foamdir = $(abs_top_builddir)/aldor/lib/libfoam
 foamlibdir = $(abs_top_builddir)/aldor/lib/libfoamlib
 
@@ -345,10 +346,12 @@ mostlyclean:
 
 clean: mostlyclean
 	rm -f $(SUBLIB).al
+	rm -f $(patsubst %,$(librarydocdir)/tex/gen/%.tex,$(docdomains))
 
 distclean: clean 
 	rm -f $(addsuffix .dep,$(alldomains))
 	rm Makefile
+
 maintainer-clean: distclean
 
 install-data:
