@@ -30,7 +30,7 @@ jobs:
           ../aldor/configure --prefix=$dd/opt
     - name: make
       run: |
-          cd aldor
+          cd build
           make -j
     - name: make check
       run: |
