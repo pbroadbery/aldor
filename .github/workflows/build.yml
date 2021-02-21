@@ -17,11 +17,26 @@ jobs:
       with: 
           java-version: '11'
           architecture: x64
+    - name: pre-configure
+      run: |
+          cd aldor
+          ./autogen.sh
     - name: configure
-      run: cd aldor; ./configure
+      run: |
+          dd=`pwd`
+          mkdir build
+          mkdir opt
+          cd build
+          ../aldor/configure --prefix=$dd/opt
     - name: make
-      run: cd aldor; make -j
-    - name: cd aldor
-      run: cd aldor; make check -j
+      run: |
+          cd aldor
+          make -j
+    - name: make check
+      run: |
+          cd build
+          make check -j
     - name: make distcheck
-      run: cd aldor; make distcheck
+      run: |
+          cd aldor
+          make distcheck
