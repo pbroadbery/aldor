@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master, pab/* ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with: 
+          java-version: '11'
+          architecture: x64
+    - name: configure
+      run: ./configure
+    - name: make
+      run: make -j
+    - name: make check
+      run: make check -j
+    - name: make distcheck
+      run: make distcheck
