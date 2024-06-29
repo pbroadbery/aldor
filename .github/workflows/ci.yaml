@@ -1,6 +1,6 @@
 name: Aldor CI
 
-on: [push, pull_request]
+on: []
 
 jobs:
   build-linux:
