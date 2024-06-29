@@ -8,11 +8,7 @@ jobs:
     timeout-minutes: 30
 
     steps:
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-      with:
-        limit-access-to-actor: true    
-
+    - uses: actions/checkout@v2
     - uses: msys2/setup-msys2@v2
       with:
         install: make mingw-w64-x86_64-gcc mingw-w64-x86_64-gmp gmp-devel zip
@@ -22,6 +18,11 @@ jobs:
         ../aldor/aldor/configure
         make -j4 --output-sync
 
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: true
+        detached: true
 
 #  build-macos:
 #    runs-on: macos-10.15
