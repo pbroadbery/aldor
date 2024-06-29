@@ -1,0 +1,32 @@
+name: Aldor CI
+
+on: [push, pull_request]
+
+jobs:
+  build-windows:
+    runs-on: windows-2019
+    timeout-minutes: 30
+
+    steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        install: make mingw-w64-x86_64-gcc mingw-w64-x86_64-gmp gmp-devel zip
+    - name: Configure and Make
+      run: |
+        mkdir ../build && cd ../build
+	../aldor/aldor/configure
+	make -j4 --output-sync
+
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: true    
+
+
+#  build-macos:
+#    runs-on: macos-10.15
+
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: build
+#      run: sh ./build-macos.sh
