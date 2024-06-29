@@ -7,6 +7,7 @@ int main() { sbrk(3); }
 EOF
 case ${host_os} in
   darwin*) sbrk_opt=_SBRK_NOT_NEEDED;;
+  mingw*) sbrk_opt=_SBRK_NOT_NEEDED;;
   *)
       if ${CC} ${CFLAGS} ${cfgSTRICTCFLAGS} conftest_sbrk.c >&AS_MESSAGE_LOG_FD 2>&1;
       then
