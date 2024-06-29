@@ -14,8 +14,8 @@ jobs:
     - name: Configure and Make
       run: |
         mkdir ../build && cd ../build
-	../aldor/aldor/configure
-	make -j4 --output-sync
+        ../aldor/aldor/configure
+        make -j4 --output-sync
 
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
