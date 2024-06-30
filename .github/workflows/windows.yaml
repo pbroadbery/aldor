@@ -24,7 +24,7 @@ jobs:
         install: make mingw-w64-x86_64-gcc mingw-w64-x86_64-gmp gmp-devel zip autotools libtool flex bison gmp-devel libgc libgc-devel
     - name: Configure and Make
       run: |
-        cd aldor && autogen.sh && cd ..
+        cd aldor && ./autogen.sh && cd ..
         mkdir ../build && cd ../build
         ../aldor/aldor/configure --prefix $(realpath ..)/opt --with-boehm-gc
         make -j4 --output-sync
