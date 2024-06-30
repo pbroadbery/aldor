@@ -1,6 +1,6 @@
 name: Aldor CI
 
-on: [push, pull_request]
+on: [push, pull_request,workflow_dispatch]
 
 jobs:
   build-windows:
@@ -21,11 +21,11 @@ jobs:
     - uses: actions/checkout@v2
     - uses: msys2/setup-msys2@v2
       with:
-        install: make mingw-w64-x86_64-gcc mingw-w64-x86_64-gmp gmp-devel zip autoconf automake libtool flex bison mingw-w64-clang-i686-gc gmp-devel
+        install: make mingw-w64-x86_64-gcc mingw-w64-x86_64-gmp gmp-devel zip autotools libtool flex bison gmp-devel libgc libgc-devel
     - name: Configure and Make
       run: |
+        cd aldor && autogen.sh && cd ..
         mkdir ../build && cd ../build
-        (cd ../aldor/aldor; ./autogen.sh)
         ../aldor/aldor/configure --prefix $(realpath ..)/opt --with-boehm-gc
         make -j4 --output-sync
 
